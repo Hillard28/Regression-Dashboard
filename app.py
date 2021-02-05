@@ -10,6 +10,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
+# Create function that formats coefficients to be displayed
 def format_coefs(coefs):
     coef_string = "yhat = "
 
@@ -58,28 +59,44 @@ app.layout = html.Div([
             # Creates dropdown to select x variable
             dcc.Dropdown(
                 id='xaxis-column',
-                options=[{'label': i, 'value': i} for i in available_indicators],
+                options=[
+                    {
+                        'label': i, 'value': i
+                    } for i in available_indicators
+                ],
                 value='quarters_since_vintage',
                 searchable = False
             ),
             # Creates dropdown to select y variable
             dcc.Dropdown(
                 id='yaxis-column',
-                options=[{'label': i, 'value': i} for i in available_indicators],
+                options=[
+                    {
+                        'label': i, 'value': i
+                    } for i in available_indicators
+                ],
                 value='called_pct',
                 searchable = False
             ),
             # Select asset class
             dcc.Dropdown(
                 id='sector-name',
-                options=[{'label': i, 'value': i} for i in available_asset_classes],
+                options=[
+                    {
+                        'label': i, 'value': i
+                    } for i in available_asset_classes
+                ],
                 value='Private Equity',
                 searchable = False
             ),
             # Select vintage year
             dcc.Dropdown(
                 id='vintage-year',
-                options=[{'label': i, 'value': i} for i in available_vintages],
+                options=[
+                    {
+                        'label': i, 'value': i
+                    } for i in available_vintages
+                ],
                 value=2015,
                 searchable = False
             ),
@@ -193,23 +210,13 @@ def update_graph(xaxis_column_name,
         data = [trace0, trace1, trace2]
         
         # Add score in title
-        layout = go.Layout(title = f'Score: {model.score(x_test_poly, y_test):.5f}',
-                           hovermode = 'closest')
+        layout = go.Layout(
+            title = f'Score: {model.score(x_test_poly, y_test):.5f}',
+            hovermode = 'closest'
+        )
 
     return go.Figure(data = data, layout = layout)
 
 # Run debug server
 if __name__ == '__main__':
     app.run_server(debug = True, use_reloader = False)
-
-
-
-
-
-
-
-
-
-
-
-
